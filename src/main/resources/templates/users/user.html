@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row justify-content-between bg-dark">
+    <div class="row justify-content-between bg-dark p-2">
         <div class="col-6 text-white">
             <strong th:text="${user.getUsername()}"></strong>
             with roles:
@@ -19,10 +19,9 @@
         <div class="col-4 text-light text-right" th:insert="~{logout.html :: logout}"></div>
     </div>
 
-    <div class="row">
-        <div class="col-2">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <br>
+    <div class="row vh-100">
+        <div class="col-2 px-0">
+            <div class="nav flex-column nav-pills mt-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active"
                    id="v-pills-home-tab"
                    data-toggle="pill"
@@ -35,27 +34,25 @@
 
         <div class="col-10 bg-light">
             <div class="tab-content" id="v-pills-tabContent">
-                <br>
-                <div class="tab-pane fade show active"
+                <div class="tab-pane fade show active p-4"
                      id="user"
                      role="tabpanel"
                      aria-labelledby="v-pills-home-tab">
-                    <div class="row justify-content-center" >
-                        <div class="col-11">
+
+                    <div class="row" >
+                        <div class="col pl-0 pb-2">
                             <h1>User information-page</h1>
-                            <br>
                         </div>
                     </div>
-                    <div class="row justify-content-center" >
-                        <div class="col-11 border rounded">
-                            <br>
+
+                    <div class="row">
+                        <div class="col border rounded-top pl-4 py-2">
                             <h4>About user</h4>
-                            <br>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
-                        <div class="col-11 bg-white border rounded">
-                            <br>
+
+                    <div class="row">
+                        <div class="col bg-white border rounded-bottom p-4">
                             <table class="table table-striped">
                                 <thead>
                                 <th>ID</th>
@@ -76,9 +73,9 @@
                                 </td>
                                 </tbody>
                             </table>
-                            <br>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
