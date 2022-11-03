@@ -39,7 +39,7 @@
                      role="tabpanel"
                      aria-labelledby="v-pills-home-tab">
 
-                    <div class="row" >
+                    <div class="row">
                         <div class="col pl-0 pb-2">
                             <h1>User information-page</h1>
                         </div>
@@ -55,22 +55,28 @@
                         <div class="col bg-white border rounded-bottom p-4">
                             <table class="table table-striped">
                                 <thead>
-                                <th>ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Age</th>
-                                <th>Email</th>
-                                <th>Role</th>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Age</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                <td th:text="${user.getId()}"></td>
-                                <td th:text="${user.getFirstName()}"></td>
-                                <td th:text="${user.getLastName()}"></td>
-                                <td></td>
-                                <td th:text="${user.getEmail()}"></td>
-                                <td th:each="role:${user.getRoles()}">
-                                    <span th:text="|${role.getRole()} |"></span>
-                                </td>
+                                <tr>
+                                    <td th:text="${user.getId()}"></td>
+                                    <td th:text="${user.getFirstName()}"></td>
+                                    <td th:text="${user.getLastName()}"></td>
+                                    <td></td>
+                                    <td th:text="${user.getEmail()}"></td>
+                                    <td>
+                                        <span th:each="role:${user.getRoles()}">
+                                            <span th:text="|${role.getRole()} |"></span>
+                                        </span>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

@@ -1,6 +1,7 @@
 package ru.kata.pp_3_1_4_bootstrap.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,9 +23,10 @@ public class AdminController {
     }
 
     @GetMapping()
-    public String allUsers(Model model) {
+    public String allUsers(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("users", userService.getAllUsers());
-        return "users/all-users";
+        model.addAttribute("user", user);
+        return "users/admin";
     }
 
     @GetMapping("/newUser")
