@@ -23,7 +23,9 @@ public class AdminController {
     }
 
     @GetMapping()
-    public String allUsers(@AuthenticationPrincipal User user, Model model) {
+    public String allUsers(@AuthenticationPrincipal User user,
+                           @ModelAttribute("newUser") User user1,
+                           Model model) {
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("user", user);
         return "users/admin";
@@ -35,7 +37,7 @@ public class AdminController {
     }
 
     @PostMapping("/new")
-    public String saveNewUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    public String saveNewUser(@ModelAttribute("newUser") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "users/new-user";
         }
