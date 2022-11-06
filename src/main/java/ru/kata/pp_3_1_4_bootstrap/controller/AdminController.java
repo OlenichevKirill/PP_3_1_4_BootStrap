@@ -41,9 +41,15 @@ public class AdminController {
     }
 
     @PostMapping("/new")
-    public String saveNewUser(@ModelAttribute("newUser") @Valid User user, BindingResult bindingResult) {
+    public String saveNewUser(@AuthenticationPrincipal User user1,
+                              @ModelAttribute("newUser") @Valid User user,
+                              BindingResult bindingResult,
+                              Model model) {
         if (bindingResult.hasErrors()) {
-            return "users/new-user";
+            model.addAttribute("users", userService.getAllUsers());
+            model.addAttribute("userInfo", user1);
+            return "users/admin";
+            //return "redirect:/admin";
         }
         userService.saveUser(user);
         return "redirect:/admin";
