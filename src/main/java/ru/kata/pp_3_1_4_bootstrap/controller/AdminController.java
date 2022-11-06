@@ -2,6 +2,7 @@ package ru.kata.pp_3_1_4_bootstrap.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,15 +12,18 @@ import ru.kata.pp_3_1_4_bootstrap.service.UserService;
 
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
     private UserService userService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @GetMapping()
@@ -27,7 +31,7 @@ public class AdminController {
                            @ModelAttribute("newUser") User user1,
                            Model model) {
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("user", user);
+        model.addAttribute("userInfo", user);
         return "users/admin";
     }
 
@@ -48,17 +52,28 @@ public class AdminController {
     @GetMapping("/edit/{id}")
     public String getUser(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userService.getUser(id));
-        return "users/edit-user";
+        return "redirect:/admin";
+        //return "users/edit-user";
     }
 
     @PatchMapping("/updateUser/{id}")
-    public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
+    public String updateUser(@RequestParam("usernameEdit") String usernameEdit,
+                             @RequestParam("passwordEdit") String passwordEdit,
+                             @RequestParam("nameEdit") String nameEdit,
+                             @RequestParam("lastNameEdit") String lastNameEdit,
+                             @RequestParam("emailEdit") String emailEdit,
                              @PathVariable("id") long id) {
-        if (bindingResult.hasErrors()) {
-            return "users/edit-user";
+        User userEdit = userService.getUser(id);
+
+        if (!userEdit.getPassword().equals(passwordEdit)) {
+            userEdit.setPassword(bCryptPasswordEncoder.encode(passwordEdit));
         }
-        user.setId(id);
-        userService.updateUser(user);
+
+        userEdit.setUsername(usernameEdit);
+        userEdit.setFirstName(nameEdit);
+        userEdit.setLastName(lastNameEdit);
+        userEdit.setEmail(emailEdit);
+        userService.updateUser(userEdit);
         return "redirect:/admin";
     }
 
