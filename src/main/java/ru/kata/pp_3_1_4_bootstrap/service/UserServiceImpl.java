@@ -38,8 +38,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void saveUser(User user) {
-        Role role = roleRepository.getById(2L);
-        user.addRole(role);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
