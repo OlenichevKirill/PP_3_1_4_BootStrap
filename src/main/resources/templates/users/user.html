@@ -10,11 +10,13 @@
 <div class="container-fluid">
     <div class="row justify-content-between bg-dark p-2">
         <div class="col-6 text-white">
-            <strong th:text="${user.getUsername()}"></strong>
-            with roles:
-            <span th:each="role:${user.getRoles()}">
-                <span th:text="|${role.getRole()} |"></span>
-            </span>
+            <h4>
+                <strong th:text="${user.getUsername()}"></strong>
+                <span class="font-weight-light">with roles: </span>
+                <span th:each="role:${user.getRoles()}">
+                <span class="font-weight-light" th:text="|${role.getRole()} |"></span>
+                </span>
+            </h4>
         </div>
         <div class="col-4 text-light text-right" th:insert="~{logout.html :: logout}"></div>
     </div>
@@ -40,7 +42,7 @@
                      aria-labelledby="v-pills-home-tab">
 
                     <div class="row">
-                        <div class="col pl-0 pb-2">
+                        <div class="col pl-0 pb-2 mt-n2">
                             <h1>User information-page</h1>
                         </div>
                     </div>
@@ -66,11 +68,11 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td th:text="${user.getId()}"></td>
-                                    <td th:text="${user.getFirstName()}"></td>
-                                    <td th:text="${user.getLastName()}"></td>
-                                    <td></td>
-                                    <td th:text="${user.getEmail()}"></td>
+                                    <td class="align-middle" th:text="${user.getId()}"></td>
+                                    <td class="align-middle" th:text="${user.getFirstName()}"></td>
+                                    <td class="align-middle" th:text="${user.getLastName()}"></td>
+                                    <td class="align-middle" th:text="${user.getAge()}"></td>
+                                    <td class="align-middle" th:text="${user.getEmail()}"></td>
                                     <td>
                                         <span th:each="role:${user.getRoles()}">
                                             <span th:text="|${role.getRole()} |"></span>

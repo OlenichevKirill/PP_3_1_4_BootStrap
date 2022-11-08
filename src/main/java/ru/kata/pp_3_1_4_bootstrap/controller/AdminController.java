@@ -70,10 +70,10 @@ public class AdminController {
     }
 
     @PatchMapping("/updateUser/{id}")
-    public String updateUser(@RequestParam("usernameEdit") String usernameEdit,
-                             @RequestParam("passwordEdit") String passwordEdit,
+    public String updateUser(@RequestParam("passwordEdit") String passwordEdit,
                              @RequestParam("nameEdit") String nameEdit,
                              @RequestParam("lastNameEdit") String lastNameEdit,
+                             @RequestParam("ageEdit") int age,
                              @RequestParam("emailEdit") String emailEdit,
                              @RequestParam(value = "rolesEdit", required = false) Set<Role> roles,
                              @PathVariable("id") long id) {
@@ -86,7 +86,7 @@ public class AdminController {
             userEdit.setRoles(roles);
         }
 
-        userEdit.setUsername(usernameEdit);
+        userEdit.setAge(age);
         userEdit.setFirstName(nameEdit);
         userEdit.setLastName(lastNameEdit);
         userEdit.setEmail(emailEdit);

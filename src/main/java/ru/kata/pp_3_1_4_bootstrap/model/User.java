@@ -18,11 +18,6 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    @NotBlank(message = "Username should not be empty")
-    @Size(min = 2, max = 256, message = "Username should be between 2 and 256 characters")
-    private String username;
-
     @Column(nullable = false)
     @NotBlank(message = "Password should not be empty")
     @Size(min = 2, max = 256, message = "Password should be between 2 and 256 characters")
@@ -42,6 +37,7 @@ public class User implements UserDetails {
     @Email(message = "Email should be valid")
     private String email;
 
+    private int age;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -52,13 +48,13 @@ public class User implements UserDetails {
     }
 
 
-    public User(Long id, String username, String password, String firstName,
-                String lastName, String email, Set<Role> roles) {
+    public User(Long id, String password, String firstName,
+                String lastName, int age, String email, Set<Role> roles) {
         this.id = id;
-        this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.age = age;
         this.email = email;
         this.roles = roles;
     }
@@ -95,6 +91,14 @@ public class User implements UserDetails {
         this.lastName = lastName;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -105,11 +109,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+        return email;
     }
 
     @Override
@@ -155,11 +155,11 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", age=" + age +
                 '}';
     }
 }
