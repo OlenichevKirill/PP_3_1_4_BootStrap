@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row justify-content-between bg-dark p-2">
+    <div class="row justify-content-between align-items-center bg-dark p-2">
         <div class="col-6 text-white">
             <h4>
                 <strong th:text="${userInfo.getUsername()}"></strong>
@@ -289,7 +289,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="ageDelete"><strong>Age</strong></label>
                                                                                 <input type="text"
-                                                                                       th:value="${user.getUsername()}"
+                                                                                       th:value="${user.getAge()}"
                                                                                        id="ageDelete"
                                                                                        name="ageDelete"
                                                                                        class="form-control"
